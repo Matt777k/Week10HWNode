@@ -10,14 +10,15 @@
 // WHEN I enter my GitHub username
 // THEN this is added to the section of the README entitled Questions, with a link to my GitHub profile
 // WHEN I enter my email address
-// THEN this is added to the section of the README entitled Questions, with instructions on how to reach me with additional questions
+// THEN this is added to the section of the README entitled Questions, with instructions on how to reach me with additional data
 // WHEN I click on the links in the Table of Contents
 // THEN I am taken to the corresponding section of the README
 
-const questions = require("inquirer");
-const fs = require('fs');
-// array of questions for user
-questions.prompt = ([
+var inquirer = require("inquirer");
+var fs = require('fs');
+
+// array of data for user
+inquirer.prompt([
 {
     type: "input",
     name: "title",
@@ -78,16 +79,33 @@ questions.prompt = ([
     name: "questions",
     message: "What is your email?"
 }
-]);
+]).then(function(data, name) {
+console.log(data.questions);
+    var fileName = data.name.toLowerCase().split(' ').join('') + ".json";
 
-// function to write README file
-function writeToFile(fileName, data) {
-}
+    fs.writeFile(fileName, JSON.stringify(data, null, '\t'), function(err) {
 
+        if (err) {
+          return console.log(err);
+        }
+    
+        console.log("Success!");
+    
+      });
+})
+// .catch(error => {
+//     if(error.isTtyError) {
+//       console.log("Prompt couldn't be rendered in the current environment")
+//     } else {
+//       console.log("Something else went wrong");
+//     }
+//   });
+
+// writeToFile();
 // function to initialize program
-function init() {
+// function init() {
 
-}
+// }
 
-// function call to initialize program
-init();
+// // function call to initialize program
+// init();
