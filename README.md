@@ -27,6 +27,7 @@
     
     Type node index.js in the terminal to start the README generator 
     
+    check out this link for a video on how to run the README generator and see it in action.
     <hr>
     
     ## Test <a name="test"></a>
