@@ -32,12 +32,6 @@
     
     <hr>
     
-    ## Contributers <a name="contributers"></a>
-    
-    ${data.contribution}
-    
-    <hr>
-    
     ## Test <a name="test"></a>
     
     ${data.test}
@@ -51,10 +45,16 @@
     ${data.license}
     
     <hr>
+
+    ## Contributers <a name="contributers"></a>
+    
+    ${data.contribution}
+    
+    <hr>
     
     ## Questions <a name="questions"></a>
     
-    For any questions regarding this material, contact me at the following:
+    For any questions regarding this project, contact me at the following:
     
     Email: ${data.email}
     

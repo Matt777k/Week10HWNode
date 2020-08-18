@@ -16,6 +16,10 @@
 
 var inquirer = require("inquirer");
 var fs = require('fs');
+var generateMarkdown = require("./generateMarkdown");
+var util = require("util");
+var writeFile = util.promisify(fs.writeFile);
+
 
 // array of data for user
 inquirer.prompt([
@@ -31,22 +35,22 @@ inquirer.prompt([
 },
 {
     type: "input",
-    name: "installation instructions",
+    name: "installation",
     message: "What are the installation instructions for the project?"
 },
 {
     type: "input",
-    name: "usage information",
+    name: "usage",
     message: "What usage information would you like to provide?"
 },
 {
     type: "input",
-    name: "contribution guidelines",
+    name: "contribution",
     message: "What are the constribution guidelines for the project?"
 },
 {
     type: "input",
-    name: "test instrucitons",
+    name: "test",
     message: "What are the testing instructions for the project?"
 },
 {
@@ -71,41 +75,22 @@ inquirer.prompt([
 },
 {
     type: "input",
-    name: "questions",
+    name: "github",
     message: "What is your github username?"
 },
 {
     type: "input",
-    name: "questions",
+    name: "email",
     message: "What is your email?"
 }
-]).then(function(data, name) {
+]).then(function(data) {
 console.log(data.questions);
-    var fileName = data.name.toLowerCase().split(' ').join('') + ".json";
+    var readMe = generateMarkdown(data);
 
-    fs.writeFile(fileName, JSON.stringify(data, null, '\t'), function(err) {
+    return writeFile("README.md", readMe);
 
-        if (err) {
-          return console.log(err);
-        }
-    
-        console.log("Success!");
-    
-      });
-})
-// .catch(error => {
-//     if(error.isTtyError) {
-//       console.log("Prompt couldn't be rendered in the current environment")
-//     } else {
-//       console.log("Something else went wrong");
-//     }
-//   });
-
-// writeToFile();
-// function to initialize program
-// function init() {
-
-// }
-
-// // function call to initialize program
-// init();
+}).then(function () {
+    console.log("README was created!")
+}).catch(function (err) {
+    console.log(err);
+});
